@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robotschild Fast Admin — Real-time</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="student-Today.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <div class="logo">
+        <i class="ti ti-robot" aria-hidden="true"></i>
+        Robotschild
+      </div>
+      <ul class="nav-menu" role="list">
+        <li><button class="nav-link" data-page="dashboard"><i class="ti ti-layout-dashboard" aria-hidden="true"></i><span>แดชบอร์ด</span></button></li>
+        <li><button class="nav-link active" data-page="realtime"><i class="ti ti-radio" aria-hidden="true"></i><span>สดตอนนี้</span></button></li>
+        <li><button class="nav-link" data-page="daily"><i class="ti ti-calendar-week" aria-hidden="true"></i><span>ประจำวัน</span></button></li>
+        <li><button class="nav-link" data-page="students"><i class="ti ti-users" aria-hidden="true"></i><span>นักเรียน</span></button></li>
+        <li><button class="nav-link" data-page="checkin"><i class="ti ti-clipboard-check" aria-hidden="true"></i><span>เช็คชื่อ</span></button></li>
+        <li><button class="nav-link" data-page="courses"><i class="ti ti-book" aria-hidden="true"></i><span>คอร์ส</span></button></li>
+        <li><button class="nav-link" data-page="export"><i class="ti ti-download" aria-hidden="true"></i><span>ส่งออก</span></button></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="time-chip" aria-live="polite" aria-label="เวลาปัจจุบัน">
+        <span class="dot-live" aria-hidden="true"></span>
+        <i class="ti ti-clock" aria-hidden="true"></i>
+        <span id="clockEl">--:--:--</span>
+      </div>
+      <button class="avatar-btn" title="ผู้ดูแลระบบ" aria-label="เมนูผู้ใช้">
+        <span>A</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="main-container">
+
+    <!-- SUMMARY BAR -->
+    <section class="summary-bar" aria-label="สรุปข้อมูลวันนี้">
+      <div class="stat-card">
+        <div class="stat-icon icon-total" aria-hidden="true"><i class="ti ti-users"></i></div>
+        <div class="stat-body">
+          <div class="stat-label">นักเรียนทั้งหมดวันนี้</div>
+          <div class="stat-value" id="totalCount">8</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon icon-absent" aria-hidden="true"><i class="ti ti-clock-x"></i></div>
+        <div class="stat-body">
+          <div class="stat-label">ยังไม่เข้าเรียน</div>
+          <div class="stat-value" id="absentCount">5</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon icon-active" aria-hidden="true"><i class="ti ti-player-play"></i></div>
+        <div class="stat-body">
+          <div class="stat-label">กำลังเรียน</div>
+          <div class="stat-value" id="activeCount">2</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon icon-done" aria-hidden="true"><i class="ti ti-circle-check"></i></div>
+        <div class="stat-body">
+          <div class="stat-label">เรียนจบแล้ว</div>
+          <div class="stat-value" id="doneCount">1</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATE NAV -->
+    <div class="date-nav">
+      <h1 class="page-title">
+        <i class="ti ti-radio" aria-hidden="true"></i>
+        ระบบติดตาม Real-time
+      </h1>
+      <div class="date-nav-right">
+        <button class="btn-today" id="todayBtn" onclick="goToday()">
+          <i class="ti ti-home" aria-hidden="true"></i> วันนี้
+        </button>
+        <div class="date-controls" role="group" aria-label="เลือกวันที่">
+          <button class="date-arrow" onclick="changeDay(-1)" aria-label="วันก่อนหน้า">
+            <i class="ti ti-chevron-left" aria-hidden="true"></i>
+          </button>
+          <span class="date-label" id="dateLabel" aria-live="polite">—</span>
+          <button class="date-arrow" onclick="changeDay(1)" aria-label="วันถัดไป">
+            <i class="ti ti-chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRACKING GRID -->
+    <section class="tracking-grid" aria-label="ตารางติดตามนักเรียน">
+
+      <!-- CARD 1: ABSENT -->
+      <div class="data-card card-absent">
+        <div class="card-top">
+          <div class="card-status">
+            <span class="status-dot dot-red" aria-hidden="true"></span>
+            ยังไม่เข้าเรียน
+          </div>
+          <span class="count-badge badge-red" id="absBadge">5</span>
+        </div>
+        <div class="student-list" id="absentList" aria-label="รายชื่อนักเรียนที่ยังไม่เข้าเรียน"></div>
+        <div class="card-footer">
+          <span class="footer-time" id="absTime">—</span>
+          <button class="btn-action btn-primary" onclick="checkInAll()">
+            <i class="ti ti-check" aria-hidden="true"></i> เช็คชื่อทั้งหมด
+          </button>
+        </div>
+      </div>
+
+      <!-- CARD 2: ACTIVE -->
+      <div class="data-card card-active">
+        <div class="card-top">
+          <div class="card-status">
+            <span class="status-dot dot-green" aria-hidden="true"></span>
+            กำลังเรียน
+          </div>
+          <span class="count-badge badge-green" id="activeBadge">2</span>
+        </div>
+        <div class="student-list" id="activeList" aria-label="รายชื่อนักเรียนที่กำลังเรียน"></div>
+        <div class="card-footer">
+          <span class="footer-time" id="actTime">—</span>
+          <button class="btn-action btn-outline" onclick="markAllDone()">
+            <i class="ti ti-check-all" aria-hidden="true"></i> จบทั้งหมด
+          </button>
+        </div>
+      </div>
+
+      <!-- CARD 3: DONE -->
+      <div class="data-card card-done">
+        <div class="card-top">
+          <div class="card-status">
+            <span class="status-dot dot-gray" aria-hidden="true"></span>
+            เรียนจบแล้ว
+          </div>
+          <span class="count-badge badge-gray" id="doneBadge">1</span>
+        </div>
+        <div class="student-list" id="doneList" aria-label="รายชื่อนักเรียนที่เรียนจบแล้ว"></div>
+        <div class="card-footer">
+          <span class="footer-time" id="doneTime">—</span>
+          <button class="btn-action btn-outline" onclick="exportDone()">
+            <i class="ti ti-download" aria-hidden="true"></i> ส่งออก
+          </button>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <i class="ti" id="toastIcon" aria-hidden="true"></i>
+    <span id="toastMsg">—</span>
+  </div>
+
+  <script src="student-Today.js"></script>
+</body>
+</html>

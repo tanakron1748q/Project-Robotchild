@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotschild Fast Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-Dashboard.css">
+</head>
+<body>
+
+    <!-- <nav class="navbar">
+        <div class="nav-inner">
+            <a class="logo" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/>
+                    <path d="M2 14h2M20 14h2M15 13v2M9 13v2"/>
+                </svg>
+                <span>Robotschild</span>
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item active">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                        แดชบอร์ด
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/></svg>
+                        สดตอนนี้
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                        ประจำวัน
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        นักเรียน
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        เช็คชื่อ
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        คอร์ส
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V15"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        ส่งออก
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav> -->
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a class="logo" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/>
+                    <path d="M2 14h2M20 14h2M15 13v2M9 13v2"/>
+                </svg>
+                <span>Robotschild</span>
+            </a>
+            <ul class="nav-menu">
+                <li>
+                    <a href="#" class="nav-link active">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                        <span>แดชบอร์ด</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/></svg>
+                        <span>สดตอนนี้</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                        <span>ประจำวัน</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <span>นักเรียน</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        <span>เช็คชื่อ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <span>คอร์ส</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V15"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        <span>ส่งออก</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="nav-right">
+            <div class="time-chip">
+                <span class="dot-live"></span>
+                <span>ระบบจัดการ</span>
+            </div>
+            <button class="avatar-btn" aria-label="โปรไฟล์ผู้ใช้">A</button>
+        </div>
+    </nav>
+    
+
+    <main class="main-container">
+
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1 class="page-title">สรุปยอดขาย</h1>
+                <p class="page-subtitle">ภาพรวมรายรับและธุรกรรมทั้งหมด</p>
+            </div>
+
+            <div class="filter-panel">
+                <div class="preset-group" role="group" aria-label="ช่วงเวลา">
+                    <button class="btn-preset" data-range="today">วันนี้</button>
+                    <button class="btn-preset" data-range="7days">7 วัน</button>
+                    <button class="btn-preset" data-range="30days">30 วัน</button>
+                    <button class="btn-preset" data-range="thisMonth">เดือนนี้</button>
+                    <button class="btn-preset active" data-range="custom">กำหนดเอง</button>
+                </div>
+                <div class="date-row">
+                    <div class="date-field">
+                        <label for="startDate" class="date-label">จาก</label>
+                        <input type="date" class="date-input" id="startDate" value="2026-05-01">
+                    </div>
+                    <span class="date-sep" aria-hidden="true">→</span>
+                    <div class="date-field">
+                        <label for="endDate" class="date-label">ถึง</label>
+                        <input type="date" class="date-input" id="endDate" value="2026-05-15">
+                    </div>
+                    <button class="btn-update" id="updateBtn" aria-label="อัปเดตข้อมูล">
+                        <span class="btn-text">อัปเดต</span>
+                        <span class="btn-spinner" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <section class="metrics-grid" aria-label="ตัวชี้วัดสำคัญ">
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div class="metric-body">
+                    <div class="metric-label">ยอดขายรวม</div>
+                    <div class="metric-value" id="totalSales">—</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <div class="metric-body">
+                    <div class="metric-label">รายการทั้งหมด</div>
+                    <div class="metric-value" id="totalItems">—</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                </div>
+                <div class="metric-body">
+                    <div class="metric-label">ช่องทางหลัก</div>
+                    <div class="metric-value" id="paymentMethod">—</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+                </div>
+                <div class="metric-body">
+                    <div class="metric-label">เฉลี่ย / บิล</div>
+                    <div class="metric-value" id="avgSales">—</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Row 1: chart full-width -->
+        <section class="details-grid details-grid--full">
+            <div class="data-card" id="card-daily-chart">
+                <div class="card-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    <span>กราฟยอดขาย</span>
+                </div>
+                <div class="chart-wrap" id="chartWrap">
+                    <canvas id="dailyChart"></canvas>
+                </div>
+                <div class="empty-state" id="chartEmpty">
+                    <div class="empty-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <p class="empty-title">ยังไม่มีข้อมูล</p>
+                    <p class="empty-text">เลือกช่วงวันที่แล้วกด "อัปเดต" เพื่อดูข้อมูล</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Row 2: two cards side by side -->
+        <section class="details-grid">
+            <!-- คอร์สที่ขายดีสุด -->
+            <div class="data-card" id="card-top-courses">
+                <div class="card-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <span>คอร์สที่ขายดีสุด</span>
+                </div>
+                <div class="rank-list" id="topCoursesList">
+                    <!-- populated by JS demo data -->
+                    <div class="rank-item">
+                        <span class="rank-no">1</span>
+                        <span class="rank-name">Python สำหรับผู้เริ่มต้น</span>
+                        <span class="rank-val">฿18,500</span>
+                    </div>
+                    <div class="rank-item">
+                        <span class="rank-no">2</span>
+                        <span class="rank-name">Scratch & Robotics</span>
+                        <span class="rank-val">฿14,200</span>
+                    </div>
+                    <div class="rank-item">
+                        <span class="rank-no">3</span>
+                        <span class="rank-name">Web Dev: HTML/CSS</span>
+                        <span class="rank-val">฿11,000</span>
+                    </div>
+                    <div class="rank-item">
+                        <span class="rank-no">4</span>
+                        <span class="rank-name">AI & Machine Learning</span>
+                        <span class="rank-val">฿9,750</span>
+                    </div>
+                    <div class="rank-item">
+                        <span class="rank-no">5</span>
+                        <span class="rank-name">Game Dev with Unity</span>
+                        <span class="rank-val">฿7,300</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- รายการธุรกรรมล่าสุด -->
+            <div class="data-card" id="card-recent-tx">
+                <div class="card-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+                    <span>รายการธุรกรรมล่าสุด</span>
+                </div>
+                <div class="tx-list" id="txList">
+                    <div class="tx-item">
+                        <div class="tx-left">
+                            <span class="tx-name">สมชาย ใจดี</span>
+                            <span class="tx-course">Python สำหรับผู้เริ่มต้น</span>
+                        </div>
+                        <div class="tx-right">
+                            <span class="tx-amount">+฿2,500</span>
+                            <span class="tx-time">10 นาทีที่แล้ว</span>
+                        </div>
+                    </div>
+                    <div class="tx-item">
+                        <div class="tx-left">
+                            <span class="tx-name">นภา รักเรียน</span>
+                            <span class="tx-course">Scratch & Robotics</span>
+                        </div>
+                        <div class="tx-right">
+                            <span class="tx-amount">+฿1,800</span>
+                            <span class="tx-time">42 นาทีที่แล้ว</span>
+                        </div>
+                    </div>
+                    <div class="tx-item">
+                        <div class="tx-left">
+                            <span class="tx-name">ปิยะ แก้วมณี</span>
+                            <span class="tx-course">Web Dev: HTML/CSS</span>
+                        </div>
+                        <div class="tx-right">
+                            <span class="tx-amount">+฿2,200</span>
+                            <span class="tx-time">1 ชม. ที่แล้ว</span>
+                        </div>
+                    </div>
+                    <div class="tx-item">
+                        <div class="tx-left">
+                            <span class="tx-name">วิภา ดอกไม้</span>
+                            <span class="tx-course">AI & Machine Learning</span>
+                        </div>
+                        <div class="tx-right">
+                            <span class="tx-amount">+฿3,500</span>
+                            <span class="tx-time">3 ชม. ที่แล้ว</span>
+                        </div>
+                    </div>
+                    <div class="tx-item">
+                        <div class="tx-left">
+                            <span class="tx-name">ธนา สุขสม</span>
+                            <span class="tx-course">Game Dev with Unity</span>
+                        </div>
+                        <div class="tx-right">
+                            <span class="tx-amount">+฿1,900</span>
+                            <span class="tx-time">5 ชม. ที่แล้ว</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="mock-data.js"></script>
+    <script src="script-Dashboard.js"></script>
+</body>
+</html>
