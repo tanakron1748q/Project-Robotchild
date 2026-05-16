@@ -155,13 +155,20 @@
                    style="font-family:'DM Mono',monospace;font-size:.78rem;text-transform:uppercase">
           </div>
           <div class="fgrp">
-            <div style="display:flex; justify-content:space-between; align-items:center">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;">
               <label class="flbl" for="fType">ประเภท <em>*</em></label>
-              <button type="button" onclick="addNewType()" style="background:none; border:none; color:var(--text-3); font-size:10px; cursor:pointer; font-weight:500; padding:0">+ เพิ่มประเภท</button>
+              <button type="button" id="toggleTypeBtn" onclick="showNewTypeForm()" style="background:none; border:none; color:var(--primary); font-size:11px; cursor:pointer; font-weight:600; padding:0">+ เพิ่มประเภทใหม่</button>
             </div>
-            <select class="fsel" id="fType">
-              <option value="">เลือกประเภท</option>
-            </select>
+            <div id="typeSelectWrap">
+              <select class="fsel" id="fType" style="width:100%">
+                <option value="">เลือกประเภท</option>
+              </select>
+            </div>
+            <div id="newTypeWrap" class="hidden" style="display:flex; gap:6px;">
+              <input class="finput" id="newTypeInput" type="text" placeholder="ระบุประเภทใหม่..." style="flex:1; height:36px; font-size:13px;">
+              <button type="button" class="btn btn-primary" onclick="confirmAddNewType()" style="height:36px; padding:0 12px; font-size:12px;">เพิ่ม</button>
+              <button type="button" class="btn btn-ghost" onclick="hideNewTypeForm()" style="height:36px; padding:0 12px; font-size:12px;">ยกเลิก</button>
+            </div>
           </div>
         </div>
         <div class="fgrp">

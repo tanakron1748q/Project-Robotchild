@@ -41,18 +41,35 @@ function populateTypeSelect() {
   sel.value = currentVal;
 }
 
-function addNewType() {
-  const newType = prompt('กรุณาระบุชื่อประเภทคอร์สใหม่:');
-  if (newType && newType.trim()) {
-    const trimmed = newType.trim();
-    if (courseTypes.includes(trimmed)) {
-      showToast(`ประเภท "${trimmed}" มีอยู่แล้ว`, 'error');
+function showNewTypeForm() {
+  document.getElementById('typeSelectWrap').classList.add('hidden');
+  document.getElementById('newTypeWrap').classList.remove('hidden');
+  document.getElementById('toggleTypeBtn').classList.add('hidden');
+  document.getElementById('newTypeInput').focus();
+}
+
+function hideNewTypeForm() {
+  document.getElementById('typeSelectWrap').classList.remove('hidden');
+  document.getElementById('newTypeWrap').classList.add('hidden');
+  document.getElementById('toggleTypeBtn').classList.remove('hidden');
+  document.getElementById('newTypeInput').value = '';
+}
+
+function confirmAddNewType() {
+  const input = document.getElementById('newTypeInput');
+  const val = input.value.trim();
+  if (val) {
+    if (courseTypes.includes(val)) {
+      showToast(`ประเภท "${val}" มีอยู่แล้ว`, 'error');
     } else {
-      courseTypes.push(trimmed);
+      courseTypes.push(val);
       populateTypeSelect();
-      document.getElementById('fType').value = trimmed;
-      showToast(`เพิ่มประเภท "${trimmed}" เรียบร้อย`, 'success');
+      document.getElementById('fType').value = val;
+      showToast(`เพิ่มประเภท "${val}" เรียบร้อย`, 'success');
+      hideNewTypeForm();
     }
+  } else {
+    showToast('กรุณาระบุชื่อประเภท', 'error');
   }
 }
 
@@ -246,6 +263,7 @@ function openAddModal() {
   document.getElementById('formSub').textContent   = 'กรอกข้อมูลคอร์สที่ต้องการเพิ่ม';
   document.getElementById('formSaveBtn').textContent = 'บันทึกคอร์ส';
   clearForm();
+  hideNewTypeForm();
   document.getElementById('fId').readOnly = false;
   document.getElementById('formOverlay').classList.add('open');
   setTimeout(() => document.getElementById('fId').focus(), 250);
@@ -256,6 +274,8 @@ function openEditModal(id) {
   document.getElementById('formTitle').textContent   = '✏️ แก้ไขคอร์ส';
   document.getElementById('formSub').textContent     = `กำลังแก้ไข: ${c.id}`;
   document.getElementById('formSaveBtn').textContent = 'บันทึกการเปลี่ยนแปลง';
+  clearForm();
+  hideNewTypeForm();
   document.getElementById('fId').value = c.id; document.getElementById('fId').readOnly = true;
   document.getElementById('fType').value = c.type;
   document.getElementById('fName').value = c.name;
