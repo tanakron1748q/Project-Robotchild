@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจัดการรายชื่อพนักงาน</title>
+    <link rel="stylesheet" href="employee-page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h2>รายชื่อพนักงานและเบอร์โทรศัพท์</h2>
+            <button class="btn btn-primary" onclick="openModal()">+ เพิ่มพนักงาน</button>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ลำดับที่</th>
+                        <th>ชื่อ - นามสกุล</th>
+                        <th>ชื่อเล่น</th>
+                        <th>เบอร์โทร</th>
+                        <th>ธนาคาร</th>
+                        <th>เลขที่บัญชี</th>
+                        <th>จัดการ</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeTableBody">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="employeeModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">เพิ่มพนักงานใหม่</h3>
+            <form id="employeeForm">
+                <input type="hidden" id="empId"> <div class="form-group">
+                    <label>ชื่อ - นามสกุล</label>
+                    <input type="text" id="empName" required placeholder="เช่น นาย ปิยะบุตร พึ่งพันธ์">
+                </div>
+                
+                <div class="form-group">
+                    <label>ชื่อเล่น</label>
+                    <input type="text" id="empNickname" required placeholder="เช่น เน้ง">
+                </div>
+                
+                <div class="form-group">
+                    <label>เบอร์โทร</label>
+                    <input type="text" id="empPhone" required placeholder="เช่น 097-9966829">
+                </div>
+                
+                <div class="form-group">
+                    <label>ธนาคาร</label>
+                    <input type="text" id="empBank" required placeholder="เช่น กสิกรไทย">
+                </div>
+                
+                <div class="form-group">
+                    <label>เลขที่บัญชี</label>
+                    <input type="text" id="empAccount" required placeholder="เช่น 022-8-30982-1">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">ยกเลิก</button>
+                    <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="employee-page.js"></script>
+</body>
+</html>
