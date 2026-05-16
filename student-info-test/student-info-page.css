@@ -1446,3 +1446,38 @@ tbody tr:hover { background: var(--gray-50); }
 }
 .btn-enroll:hover { background: #1e40af; }
 .btn-enroll i { font-size: 13px; }
+/* ---------- New Logo Images ---------- */
+.nav-logo-img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.sidebar-logo-img {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    background: rgba(255,255,255,0.95);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+}
+
+.rcp-logo-block-img {
+    margin-bottom: 10px;
+}
+
+.rcp-logo-img {
+    width: 140px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* Adjust sidebar brand for image */
+.sidebar-brand {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+}
