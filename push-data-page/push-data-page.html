@@ -197,73 +197,101 @@
 <div id="receiptOverlay" class="modal-overlay hidden">
   <div class="receipt-modal">
     <div class="receipt-paper" id="printableReceipt">
-      <div class="receipt-header">
-        <div class="receipt-logo">
-          <i class="ti ti-robot"></i>
-          <span>Robotschild</span>
+
+      <!-- TOP BANNER -->
+      <div class="rcp-top-banner">
+        <span>ใบเสร็จรับเงิน / Official Receipt</span>
+      </div>
+
+      <!-- HEADER: Logo + Customer -->
+      <div class="rcp-header-grid">
+        <div class="rcp-logo-block">
+          <div class="rcp-logo-img">
+            <i class="ti ti-robot" style="font-size:32px;color:#c8a000;"></i>
+            <div class="rcp-logo-text">
+              <span class="rcp-logo-name">Robot's<br>Child</span>
+            </div>
+          </div>
+          <div class="rcp-company-info">
+            <p>Robot's Child /หจก.หุ่นยนต์สำหรับเด็ก</p>
+            <p>สาขา ฟิวเจอร์พาร์ค รังสิต</p>
+            <p>ที่อยู่ Future Park ชั้น3 Campus Park ฝั่ง Central</p>
+            <p>Phone: 0896683571</p>
+          </div>
         </div>
-        <div class="receipt-title">
-          <h2>ใบเสร็จรับเงิน</h2>
-          <p>Official Receipt</p>
+        <div class="rcp-customer-block">
+          <div class="rcp-customer-row">
+            <span class="rcp-lbl">ลูกค้า:</span>
+            <span class="rcp-customer-name" id="rcpName">—</span>
+          </div>
+          <div class="rcp-meta-grid">
+            <span class="rcp-lbl">วันที่(Date)</span>
+            <span class="rcp-lbl">เลขที่ใบเสร็จ</span>
+            <span class="rcp-highlight" id="rcpDate">—</span>
+            <span class="rcp-highlight" id="rcpNo">—</span>
+          </div>
         </div>
       </div>
 
-      <div class="receipt-info">
-        <div class="info-group">
-          <span class="info-lbl">เลขที่ใบเสร็จ:</span>
-          <span class="info-val" id="rcpNo">RC-20260516-001</span>
-        </div>
-        <div class="info-group">
-          <span class="info-lbl">วันที่:</span>
-          <span class="info-val" id="rcpDate">16/05/2026</span>
-        </div>
-      </div>
-
-      <div class="receipt-divider"></div>
-
-      <div class="receipt-client">
-        <p><span class="info-lbl">ชื่อนักเรียน:</span> <span id="rcpName" class="info-val">—</span></p>
-        <p><span class="info-lbl">เบอร์โทรศัพท์:</span> <span id="rcpPhone" class="info-val">—</span></p>
-      </div>
-
-      <table class="receipt-table">
+      <!-- TABLE -->
+      <table class="rcp-table">
         <thead>
           <tr>
-            <th>รายการ</th>
-            <th style="text-align: right;">จำนวนเงิน</th>
+            <th class="col-no">No.</th>
+            <th class="col-item">รายการ</th>
+            <th class="col-unit">หน่วย / Units</th>
+            <th class="col-price">Price</th>
+            <th class="col-total">Total</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
-              <div id="rcpCourseName" style="font-weight: 600;">—</div>
-              <div id="rcpCourseDetail" style="font-size: 11px; color: #666;">เริ่มเรียน: —</div>
-            </td>
-            <td style="text-align: right;" id="rcpFullPrice">฿0</td>
+            <td class="col-no rcp-highlight-row" id="rcpCourseCode">—</td>
+            <td class="col-item rcp-highlight-row" id="rcpCourseName">—</td>
+            <td class="col-unit rcp-highlight-row" style="text-align:right;">1</td>
+            <td class="col-price rcp-highlight-row" id="rcpFullPrice" style="text-align:right;">0.00</td>
+            <td class="col-total" id="rcpTotal" style="text-align:right;">0.00</td>
           </tr>
+          <tr class="rcp-empty-row"><td colspan="5"></td></tr>
+          <tr class="rcp-empty-row"><td colspan="5"></td></tr>
+          <tr class="rcp-empty-row"><td colspan="5"></td></tr>
         </tbody>
         <tfoot>
-          <tr>
-            <td>ส่วนลด</td>
-            <td style="text-align: right; color: #d00;" id="rcpDiscount">-฿0</td>
-          </tr>
-          <tr class="total-row">
-            <td>ยอดเงินสุทธิ</td>
-            <td style="text-align: right;" id="rcpNet">฿0</td>
+          <tr class="rcp-sum-row">
+            <td colspan="4" style="text-align:right;font-weight:600;">รวม</td>
+            <td id="rcpNet" style="text-align:right;font-weight:700;text-decoration:underline;">0.00</td>
           </tr>
         </tfoot>
       </table>
 
-      <div class="receipt-footer">
-        <div class="payment-method">
-          ชำระโดย: <span id="rcpMethod">—</span>
+      <!-- PAYMENT METHOD CHECKBOXES -->
+      <div class="rcp-payment-row">
+        <span class="rcp-lbl">ชำระโดย</span>
+        <label class="rcp-check-lbl"><input type="checkbox" id="chkCash" disabled> เงินสด</label>
+        <label class="rcp-check-lbl"><input type="checkbox" id="chkCredit" disabled> บัตรเครดิต</label>
+        <label class="rcp-check-lbl"><input type="checkbox" id="chkQR" disabled> โอนQR</label>
+      </div>
+
+      <!-- NOTE -->
+      <div class="rcp-note">
+        ใบเสร็จรับเงินนี้จะสมบูรณ์เมื่อเช็ค/โอน/QR ของท่านที่เรียกเก็บเงินจากธนาคารได้เรียบร้อยแล้ว และโปรดเก็บไว้เป็นหลักฐาน
+      </div>
+
+      <!-- SIGNATURES -->
+      <div class="rcp-sig-row">
+        <div class="rcp-sig-col">
+          <p>ผู้รับเงิน ( Collector )</p>
+          <div class="rcp-sig-dots">...........................</div>
+          <p class="rcp-sig-bracket">( ....................................... )</p>
         </div>
-        <div class="signature-area">
-          <div class="sig-line"></div>
-          <p>ผู้รับเงิน</p>
+        <div class="rcp-sig-col">
+          <p>ผู้มีอำนาจลงนาม (Authorized Person)</p>
+          <div class="rcp-sig-dots">...........................</div>
+          <p class="rcp-sig-bracket">( ....................................... )</p>
         </div>
       </div>
-    </div>
+
+    </div><!-- /receipt-paper -->
 
     <div class="receipt-actions">
       <button class="btn btn-ghost" onclick="closeReceipt()">ปิด</button>

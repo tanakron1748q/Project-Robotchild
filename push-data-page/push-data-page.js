@@ -187,28 +187,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const rcpDate = now.toLocaleDateString('th-TH', { day:'2-digit', month:'2-digit', year:'numeric' });
     const rcpTime = now.getTime();
     
-    // Fill basic info
-    $('rcpNo').textContent    = `RC-${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}-${String(rcpTime).slice(-4)}`;
-    $('rcpDate').textContent  = rcpDate;
-    $('rcpName').textContent  = $('fullName').value;
-    $('rcpPhone').textContent = $('phone').value;
+    // Receipt number
+    $('rcpNo').textContent = `${String(now.getFullYear()).slice(-2)}-${String(rcpTime).slice(-4)}`;
+    $('rcpDate').textContent = rcpDate;
+
+    // Customer
+    $('rcpName').textContent = $('fullName').value;
     
     // Course info
     const sel = courseEl.options[courseEl.selectedIndex];
-    $('rcpCourseName').textContent   = sel.text;
-    $('rcpCourseDetail').textContent = `เริ่มเรียน: ${$('learnDate').value} | อุปกรณ์: ${$('equipment').value || '-'}`;
-    
-    // Price info
+    $('rcpCourseCode').textContent = sel.value || '—';
+    $('rcpCourseName').textContent  = sel.value ? sel.text : '—';
+
+    // Price
     const disc = parseFloat($('discount').value) || 0;
     const net  = basePrice - disc;
+    $('rcpFullPrice').textContent = basePrice.toLocaleString('th-TH', {minimumFractionDigits:2});
+    $('rcpTotal').textContent     = basePrice.toLocaleString('th-TH', {minimumFractionDigits:2});
+    $('rcpNet').textContent       = net.toLocaleString('th-TH', {minimumFractionDigits:2});
     
-    $('rcpFullPrice').textContent = '฿' + basePrice.toLocaleString('th-TH');
-    $('rcpDiscount').textContent  = '-฿' + disc.toLocaleString('th-TH');
-    $('rcpNet').textContent       = '฿' + net.toLocaleString('th-TH');
-    
-    // Method
-    const methodMap = { transfer: 'โอนผ่านธนาคาร', cash: 'เงินสด', credit: 'บัตรเครดิต' };
-    $('rcpMethod').textContent = methodMap[$('paymentMethod').value] || '—';
+    // Payment checkboxes
+    const method = $('paymentMethod').value;
+    $('chkCash').checked   = method === 'cash';
+    $('chkCredit').checked = method === 'credit';
+    $('chkQR').checked     = method === 'transfer';
 
     $('receiptOverlay').classList.remove('hidden');
   };
