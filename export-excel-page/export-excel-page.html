@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ส่งออก Excel — Robotschild</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="export-excel-page.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <div class="logo">
+        <i class="ti ti-robot" aria-hidden="true"></i>Robotschild
+      </div>
+      <ul class="nav-menu" role="list">
+        <li><button class="nav-link" data-page="dashboard"><i class="ti ti-layout-dashboard" aria-hidden="true"></i><span>แดชบอร์ด</span></button></li>
+        <li><button class="nav-link" data-page="realtime"><i class="ti ti-radio" aria-hidden="true"></i><span>สดตอนนี้</span></button></li>
+        <li><button class="nav-link" data-page="daily"><i class="ti ti-calendar-week" aria-hidden="true"></i><span>ประจำวัน</span></button></li>
+        <li><button class="nav-link" data-page="students"><i class="ti ti-users" aria-hidden="true"></i><span>นักเรียน</span></button></li>
+        <li><button class="nav-link" data-page="checkin"><i class="ti ti-clipboard-check" aria-hidden="true"></i><span>เช็คชื่อ</span></button></li>
+        <li><button class="nav-link" data-page="courses"><i class="ti ti-book" aria-hidden="true"></i><span>คอร์ส</span></button></li>
+        <li><button class="nav-link active" data-page="export"><i class="ti ti-download" aria-hidden="true"></i><span>ส่งออก</span></button></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="time-chip" aria-live="polite">
+        <span class="dot-live" aria-hidden="true"></span>
+        <i class="ti ti-clock" aria-hidden="true"></i>
+        <span id="clockEl">--:--:--</span>
+      </div>
+      <button class="avatar-btn" aria-label="เมนูผู้ใช้">A</button>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-header">
+      <h1>ส่งออก Excel</h1>
+      <p>เลือกช่วงวันที่แล้วดาวน์โหลดรายงาน</p>
+    </div>
+
+    <div class="export-card">
+
+      <!-- Quick range chips -->
+      <div class="section-label">
+        <i class="ti ti-calendar-event" aria-hidden="true"></i>ช่วงเวลาด่วน
+      </div>
+      <div class="quick-chips" id="quickChips">
+        <button class="chip active" data-range="today">วันนี้</button>
+        <button class="chip" data-range="yesterday">เมื่อวาน</button>
+        <button class="chip" data-range="week">7 วันล่าสุด</button>
+        <button class="chip" data-range="month">เดือนนี้</button>
+        <button class="chip" data-range="lastmonth">เดือนที่แล้ว</button>
+        <button class="chip" data-range="custom">กำหนดเอง</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Date range -->
+      <div class="section-label">
+        <i class="ti ti-calendar-range" aria-hidden="true"></i>ช่วงวันที่
+      </div>
+
+      <div class="date-row">
+        <div class="date-group">
+          <label for="startDate">วันที่เริ่มต้น</label>
+          <div class="date-input-wrap">
+            <i class="ti ti-calendar" aria-hidden="true"></i>
+            <input type="date" id="startDate" required>
+          </div>
+        </div>
+
+        <div class="date-sep" aria-hidden="true">
+          <i class="ti ti-arrow-right"></i>
+        </div>
+
+        <div class="date-group">
+          <label for="endDate">วันที่สิ้นสุด</label>
+          <div class="date-input-wrap">
+            <i class="ti ti-calendar" aria-hidden="true"></i>
+            <input type="date" id="endDate" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Range preview -->
+      <div class="range-preview" id="rangePreview">
+        <i class="ti ti-info-circle" aria-hidden="true"></i>
+        <span id="rangePreviewText">เลือกช่วงวันที่</span>
+      </div>
+
+      <!-- Error -->
+      <div class="date-error" id="dateError">
+        <i class="ti ti-alert-circle" aria-hidden="true"></i>
+        <span id="dateErrorMsg">วันที่เริ่มต้นต้องไม่เกินวันที่สิ้นสุด</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Export type -->
+      <div class="section-label">
+        <i class="ti ti-file-spreadsheet" aria-hidden="true"></i>ประเภทข้อมูล
+      </div>
+
+      <div class="type-grid">
+        <label class="type-card">
+          <input type="radio" name="exportType" value="all" checked>
+          <div class="type-card-inner">
+            <i class="ti ti-table" aria-hidden="true"></i>
+            <span class="type-name">ข้อมูลทั้งหมด</span>
+            <span class="type-desc">ข้อมูลทุกอย่าง</span>
+          </div>
+        </label>
+        <label class="type-card">
+          <input type="radio" name="exportType" value="enrollment">
+          <div class="type-card-inner">
+            <i class="ti ti-forms" aria-hidden="true"></i>
+            <span class="type-name">การลงทะเบียน</span>
+            <span class="type-desc">ข้อมูลนักเรียนและคอร์ส</span>
+          </div>
+        </label>
+        <label class="type-card">
+          <input type="radio" name="exportType" value="payment">
+          <div class="type-card-inner">
+            <i class="ti ti-receipt" aria-hidden="true"></i>
+            <span class="type-name">การชำระเงิน</span>
+            <span class="type-desc">ยอดเงินและสถานะ</span>
+          </div>
+        </label>
+        <label class="type-card">
+          <input type="radio" name="exportType" value="attendance">
+          <div class="type-card-inner">
+            <i class="ti ti-clipboard-check" aria-hidden="true"></i>
+            <span class="type-name">การเช็คชื่อ</span>
+            <span class="type-desc">รายงานการเข้าเรียน</span>
+          </div>
+        </label>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Download button -->
+      <button class="btn-download" id="downloadBtn" onclick="handleDownload()">
+        <i class="ti ti-file-spreadsheet" aria-hidden="true"></i>
+        <span id="downloadBtnText">ดาวน์โหลด Excel</span>
+      </button>
+
+    </div>
+
+    <!-- Recent exports -->
+    <div class="recent-section">
+      <div class="recent-header">
+        <span class="section-label" style="margin-bottom:0">
+          <i class="ti ti-history" aria-hidden="true"></i>ดาวน์โหลดล่าสุด
+        </span>
+        <button class="btn-clear-history" onclick="clearHistory()">ล้างประวัติ</button>
+      </div>
+      <div id="historyList" class="history-list">
+        <div class="history-empty" id="historyEmpty">
+          <i class="ti ti-file-off" aria-hidden="true"></i>
+          <span>ยังไม่มีประวัติการดาวน์โหลด</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    <i class="ti ti-circle-check" aria-hidden="true"></i>
+    <span id="toastMsg">ดาวน์โหลดเรียบร้อยแล้ว</span>
+  </div>
+
+  <script src="export-excel-page.js"></script>
+</body>
+</html>
