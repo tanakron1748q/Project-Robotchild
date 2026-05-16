@@ -1,76 +1,174 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบจัดการรายชื่อพนักงาน</title>
-    <link rel="stylesheet" href="employee-page.css">
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบจัดการรายชื่อพนักงาน</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="employee-page.css">
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <h2>รายชื่อพนักงานและเบอร์โทรศัพท์</h2>
-            <button class="btn btn-primary" onclick="openModal()">+ เพิ่มพนักงาน</button>
-        </div>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <div class="logo">
+        <i class="ti ti-robot" aria-hidden="true"></i>Robotschild
+      </div>
+      <ul class="nav-menu" role="list">
+        <li><button class="nav-link" data-page="dashboard"><i class="ti ti-layout-dashboard" aria-hidden="true"></i><span>แดชบอร์ด</span></button></li>
+        <li><button class="nav-link" data-page="realtime"><i class="ti ti-radio" aria-hidden="true"></i><span>สดตอนนี้</span></button></li>
+        <li><button class="nav-link" data-page="daily"><i class="ti ti-calendar-week" aria-hidden="true"></i><span>ประจำวัน</span></button></li>
+        <li><button class="nav-link active" data-page="employees"><i class="ti ti-users" aria-hidden="true"></i><span>พนักงาน</span></button></li>
+        <li><button class="nav-link" data-page="checkin"><i class="ti ti-clipboard-check" aria-hidden="true"></i><span>เช็คชื่อ</span></button></li>
+        <li><button class="nav-link" data-page="courses"><i class="ti ti-book" aria-hidden="true"></i><span>คอร์ส</span></button></li>
+        <li><button class="nav-link" data-page="export"><i class="ti ti-download" aria-hidden="true"></i><span>ส่งออก</span></button></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="time-chip" aria-live="polite">
+        <span class="dot-live" aria-hidden="true"></span>
+        <i class="ti ti-clock" aria-hidden="true"></i>
+        <span id="clockEl">--:--:--</span>
+      </div>
+      <button class="avatar-btn" aria-label="เมนูผู้ใช้">A</button>
+    </div>
+  </nav>
 
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ลำดับที่</th>
-                        <th>ชื่อ - นามสกุล</th>
-                        <th>ชื่อเล่น</th>
-                        <th>เบอร์โทร</th>
-                        <th>ธนาคาร</th>
-                        <th>เลขที่บัญชี</th>
-                        <th>จัดการ</th>
-                    </tr>
-                </thead>
-                <tbody id="employeeTableBody">
-                    </tbody>
-            </table>
-        </div>
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- Page header -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>รายชื่อพนักงาน</h1>
+        <p>ข้อมูลพนักงาน เบอร์โทรศัพท์ และบัญชีธนาคาร</p>
+      </div>
+      <button class="btn-add" onclick="openModal()">
+        <i class="ti ti-plus" aria-hidden="true"></i>เพิ่มพนักงาน
+      </button>
     </div>
 
-    <div id="employeeModal" class="modal">
-        <div class="modal-content">
-            <h3 id="modalTitle">เพิ่มพนักงานใหม่</h3>
-            <form id="employeeForm">
-                <input type="hidden" id="empId"> <div class="form-group">
-                    <label>ชื่อ - นามสกุล</label>
-                    <input type="text" id="empName" required placeholder="เช่น นาย ปิยะบุตร พึ่งพันธ์">
-                </div>
-                
-                <div class="form-group">
-                    <label>ชื่อเล่น</label>
-                    <input type="text" id="empNickname" required placeholder="เช่น เน้ง">
-                </div>
-                
-                <div class="form-group">
-                    <label>เบอร์โทร</label>
-                    <input type="text" id="empPhone" required placeholder="เช่น 097-9966829">
-                </div>
-                
-                <div class="form-group">
-                    <label>ธนาคาร</label>
-                    <input type="text" id="empBank" required placeholder="เช่น กสิกรไทย">
-                </div>
-                
-                <div class="form-group">
-                    <label>เลขที่บัญชี</label>
-                    <input type="text" id="empAccount" required placeholder="เช่น 022-8-30982-1">
-                </div>
-
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()">ยกเลิก</button>
-                    <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
-                </div>
-            </form>
-        </div>
+    <!-- Stats row -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-label">พนักงานทั้งหมด</span>
+        <span class="stat-value" id="statTotal">0</span>
+      </div>
     </div>
 
-    <script src="employee-page.js"></script>
+    <!-- Search -->
+    <div class="search-wrap">
+      <i class="ti ti-search search-icon" aria-hidden="true"></i>
+      <input type="text" id="searchInput" class="search-input" placeholder="ค้นหาชื่อ ชื่อเล่น หรือเบอร์โทร…" oninput="handleSearch()">
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:48px">#</th>
+            <th>ชื่อ - นามสกุล</th>
+            <th>ชื่อเล่น</th>
+            <th>เบอร์โทร</th>
+            <th>ธนาคาร</th>
+            <th>เลขที่บัญชี</th>
+            <th style="width:96px"></th>
+          </tr>
+        </thead>
+        <tbody id="employeeTableBody"></tbody>
+      </table>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState" style="display:none">
+        <i class="ti ti-users-minus" aria-hidden="true"></i>
+        <p>ไม่พบข้อมูลพนักงาน</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL OVERLAY -->
+  <div id="modalOverlay" class="modal-overlay" onclick="handleOverlayClick(event)">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 id="modalTitle">เพิ่มพนักงานใหม่</h2>
+        <button class="modal-close" onclick="closeModal()" aria-label="ปิด">
+          <i class="ti ti-x" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <form id="employeeForm" novalidate>
+        <input type="hidden" id="empId">
+
+        <div class="form-row">
+          <div class="fg">
+            <label for="empName">ชื่อ - นามสกุล<span class="req">*</span></label>
+            <input type="text" id="empName" placeholder="เช่น นาย สมชาย ใจดี" required>
+          </div>
+          <div class="fg fg-sm">
+            <label for="empNickname">ชื่อเล่น<span class="req">*</span></label>
+            <input type="text" id="empNickname" placeholder="เช่น ชาย" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="fg">
+            <label for="empPhone">เบอร์โทรศัพท์<span class="req">*</span></label>
+            <input type="tel" id="empPhone" placeholder="08X-XXX-XXXX" maxlength="12" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="fg">
+            <label for="empBank">ธนาคาร<span class="req">*</span></label>
+            <input type="text" id="empBank" placeholder="เช่น กสิกรไทย" required>
+          </div>
+          <div class="fg">
+            <label for="empAccount">เลขที่บัญชี<span class="req">*</span></label>
+            <input type="text" id="empAccount" placeholder="เช่น 0228309821" maxlength="12" required>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModal()">ยกเลิก</button>
+          <button type="submit" class="btn-save">
+            <i class="ti ti-check" aria-hidden="true"></i>บันทึกข้อมูล
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DELETE CONFIRM DIALOG -->
+  <div id="deleteOverlay" class="modal-overlay" onclick="handleDeleteOverlayClick(event)">
+    <div class="modal modal-sm" role="dialog" aria-modal="true" aria-labelledby="deleteTitle">
+      <div class="modal-header">
+        <h2 id="deleteTitle">ยืนยันการลบ</h2>
+        <button class="modal-close" onclick="closeDeleteModal()" aria-label="ปิด">
+          <i class="ti ti-x" aria-hidden="true"></i>
+        </button>
+      </div>
+      <p class="delete-msg">คุณต้องการลบ <strong id="deleteTargetName"></strong> ออกจากระบบ?<br>การกระทำนี้ไม่สามารถย้อนกลับได้</p>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeDeleteModal()">ยกเลิก</button>
+        <button type="button" class="btn-delete-confirm" id="confirmDeleteBtn">
+          <i class="ti ti-trash" aria-hidden="true"></i>ลบออกจากระบบ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    <i class="ti ti-circle-check" aria-hidden="true"></i>
+    <span id="toastMsg">บันทึกข้อมูลเรียบร้อยแล้ว</span>
+  </div>
+
+  <script src="employee-page.js"></script>
 </body>
 </html>
