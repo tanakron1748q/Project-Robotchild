@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotschild — รายชื่อนักเรียน</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+    <link rel="stylesheet" href="student-info-page.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a class="logo" href="#">
+                <i class="ti ti-robot" aria-hidden="true"></i>
+                Robotschild
+            </a>
+            <ul class="nav-menu">
+                <li><a href="../Dashborad/Dashboard.html" class="nav-link"><i class="ti ti-layout-dashboard"></i><span>แดชบอร์ด</span></a></li>
+                <li><a href="../Student-List-In-this-day/student-Today.html" class="nav-link"><i class="ti ti-radio"></i><span>สดตอนนี้</span></a></li>
+                <li><a href="#" class="nav-link"><i class="ti ti-calendar-week"></i><span>ประจำวัน</span></a></li>
+                <li><a href="#" class="nav-link active"><i class="ti ti-school"></i><span>นักเรียน</span></a></li>
+                <li><a href="#" class="nav-link"><i class="ti ti-clipboard-check"></i><span>เช็คชื่อ</span></a></li>
+                <li><a href="../course-page/course.html" class="nav-link"><i class="ti ti-book"></i><span>คอร์ส</span></a></li>
+                <li><a href="#" class="nav-link"><i class="ti ti-download"></i><span>ส่งออก</span></a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="time-chip">
+                    <span class="dot-live"></span>
+                    <i class="ti ti-clock"></i>
+                    <span id="clockEl">--:--:--</span>
+                </div>
+                <button class="avatar-btn">A</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">🎓 รายชื่อนักเรียน</h1>
+                <p class="page-sub">ข้อมูลส่วนตัวและประวัติการลงทะเบียนเรียน</p>
+            </div>
+            <button class="btn btn-primary" onclick="alert('ฟีเจอร์เพิ่มนักเรียนใหม่กำลังพัฒนา')">
+                <i class="ti ti-user-plus"></i> เพิ่มนักเรียน
+            </button>
+        </div>
+
+        <div class="card toolbar-card">
+            <div class="search-wrap">
+                <i class="ti ti-search search-icon"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="ค้นหาชื่อ, ชื่อเล่น, โรงเรียน หรือเบอร์โทรศัพท์...">
+            </div>
+            <div class="stats-mini">
+                <span class="stat-item">
+                    <span class="stat-lbl">ทั้งหมด</span>
+                    <span class="stat-val" id="studentCount">0</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="card table-card">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ชื่อ - นามสกุล</th>
+                            <th>ชื่อเล่น</th>
+                            <th>ระดับชั้น</th>
+                            <th>โรงเรียน</th>
+                            <th>เบอร์โทรศัพท์</th>
+                            <th style="text-align: right;">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTableBody">
+                        <!-- JS renders rows here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="emptyState" class="empty-state hidden">
+                <i class="ti ti-search-off"></i>
+                <p class="empty-title">ไม่พบข้อมูลนักเรียน</p>
+                <p class="empty-text">ลองปรับเปลี่ยนคำค้นหาใหม่อีกครั้ง</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="student-info-page.js"></script>
+    <script>
+        // Simple clock for navbar
+        function updateClock() {
+            const el = document.getElementById('clockEl');
+            if (el) el.textContent = new Date().toLocaleTimeString('th-TH', { hour12: false });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
