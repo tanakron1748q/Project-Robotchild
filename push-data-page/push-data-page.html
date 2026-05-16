@@ -193,6 +193,86 @@
   <i class="ti ti-circle-check"></i>บันทึกข้อมูลเรียบร้อยแล้ว
 </div>
 
-<script src="push-data-page.js"></script>
-</body>
+<!-- RECEIPT MODAL -->
+<div id="receiptOverlay" class="modal-overlay hidden">
+  <div class="receipt-modal">
+    <div class="receipt-paper" id="printableReceipt">
+      <div class="receipt-header">
+        <div class="receipt-logo">
+          <i class="ti ti-robot"></i>
+          <span>Robotschild</span>
+        </div>
+        <div class="receipt-title">
+          <h2>ใบเสร็จรับเงิน</h2>
+          <p>Official Receipt</p>
+        </div>
+      </div>
+
+      <div class="receipt-info">
+        <div class="info-group">
+          <span class="info-lbl">เลขที่ใบเสร็จ:</span>
+          <span class="info-val" id="rcpNo">RC-20260516-001</span>
+        </div>
+        <div class="info-group">
+          <span class="info-lbl">วันที่:</span>
+          <span class="info-val" id="rcpDate">16/05/2026</span>
+        </div>
+      </div>
+
+      <div class="receipt-divider"></div>
+
+      <div class="receipt-client">
+        <p><span class="info-lbl">ชื่อนักเรียน:</span> <span id="rcpName" class="info-val">—</span></p>
+        <p><span class="info-lbl">เบอร์โทรศัพท์:</span> <span id="rcpPhone" class="info-val">—</span></p>
+      </div>
+
+      <table class="receipt-table">
+        <thead>
+          <tr>
+            <th>รายการ</th>
+            <th style="text-align: right;">จำนวนเงิน</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div id="rcpCourseName" style="font-weight: 600;">—</div>
+              <div id="rcpCourseDetail" style="font-size: 11px; color: #666;">เริ่มเรียน: —</div>
+            </td>
+            <td style="text-align: right;" id="rcpFullPrice">฿0</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>ส่วนลด</td>
+            <td style="text-align: right; color: #d00;" id="rcpDiscount">-฿0</td>
+          </tr>
+          <tr class="total-row">
+            <td>ยอดเงินสุทธิ</td>
+            <td style="text-align: right;" id="rcpNet">฿0</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="receipt-footer">
+        <div class="payment-method">
+          ชำระโดย: <span id="rcpMethod">—</span>
+        </div>
+        <div class="signature-area">
+          <div class="sig-line"></div>
+          <p>ผู้รับเงิน</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="receipt-actions">
+      <button class="btn btn-ghost" onclick="closeReceipt()">ปิด</button>
+      <button class="btn btn-primary" onclick="window.print()">
+        <i class="ti ti-printer"></i> พิมพ์ใบเสร็จ
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="push-data-page.js"></script></body>
 </html>

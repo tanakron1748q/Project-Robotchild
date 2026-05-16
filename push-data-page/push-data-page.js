@@ -173,11 +173,51 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => toast.classList.remove('show'), 3000);
   };
 
+  // ---------- Receipt Logic ----------
+  window.closeReceipt = () => {
+    $('receiptOverlay').classList.add('hidden');
+    form.reset();
+    updateProgress();
+    updateSummary();
+    badge.classList.remove('show');
+  };
+
+  const showReceipt = () => {
+    const now = new Date();
+    const rcpDate = now.toLocaleDateString('th-TH', { day:'2-digit', month:'2-digit', year:'numeric' });
+    const rcpTime = now.getTime();
+    
+    // Fill basic info
+    $('rcpNo').textContent    = `RC-${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}-${String(rcpTime).slice(-4)}`;
+    $('rcpDate').textContent  = rcpDate;
+    $('rcpName').textContent  = $('fullName').value;
+    $('rcpPhone').textContent = $('phone').value;
+    
+    // Course info
+    const sel = courseEl.options[courseEl.selectedIndex];
+    $('rcpCourseName').textContent   = sel.text;
+    $('rcpCourseDetail').textContent = `เริ่มเรียน: ${$('learnDate').value} | อุปกรณ์: ${$('equipment').value || '-'}`;
+    
+    // Price info
+    const disc = parseFloat($('discount').value) || 0;
+    const net  = basePrice - disc;
+    
+    $('rcpFullPrice').textContent = '฿' + basePrice.toLocaleString('th-TH');
+    $('rcpDiscount').textContent  = '-฿' + disc.toLocaleString('th-TH');
+    $('rcpNet').textContent       = '฿' + net.toLocaleString('th-TH');
+    
+    // Method
+    const methodMap = { transfer: 'โอนผ่านธนาคาร', cash: 'เงินสด', credit: 'บัตรเครดิต' };
+    $('rcpMethod').textContent = methodMap[$('paymentMethod').value] || '—';
+
+    $('receiptOverlay').classList.remove('hidden');
+  };
+
   // ---------- Form submit ----------
   form.addEventListener('submit', e => {
     e.preventDefault();
 
-    // Mark all required fields as touched so errors appear
+    // Mark all required fields as touched
     ['fullName', 'phone', 'grade', 'course', 'learnDate'].forEach(id => {
       $(id)?.classList.add('touched');
     });
@@ -187,26 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // -------------------------------------------------------
-    // จุดนี้สามารถใช้ fetch() / axios เพื่อ POST ข้อมูลได้
-    // -------------------------------------------------------
-    // const payload = {
-    //   fullName:      $('fullName').value,
-    //   nickname:      $('nickname').value,
-    //   grade:         $('grade').value,
-    //   school:        $('school').value,
-    //   phone:         $('phone').value,
-    //   course:        $('course').value,
-    //   learnDate:     $('learnDate').value,
-    //   equipment:     $('equipment').value,
-    //   paymentMethod: $('paymentMethod').value,
-    //   status:        $('status').value,
-    //   discount:      parseFloat($('discount').value) || 0,
-    //   net:           basePrice - (parseFloat($('discount').value) || 0),
-    // };
-    // await fetch('/api/enroll', { method: 'POST', body: JSON.stringify(payload) });
-
     showToast();
+    setTimeout(showReceipt, 1000); // Show receipt after toast
   });
 
 }); // DOMContentLoaded
