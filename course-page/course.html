@@ -155,13 +155,12 @@
                    style="font-family:'DM Mono',monospace;font-size:.78rem;text-transform:uppercase">
           </div>
           <div class="fgrp">
-            <label class="flbl" for="fType">ประเภท <em>*</em></label>
+            <div style="display:flex; justify-content:space-between; align-items:center">
+              <label class="flbl" for="fType">ประเภท <em>*</em></label>
+              <button type="button" onclick="addNewType()" style="background:none; border:none; color:var(--text-3); font-size:10px; cursor:pointer; font-weight:500; padding:0">+ เพิ่มประเภท</button>
+            </div>
             <select class="fsel" id="fType">
               <option value="">เลือกประเภท</option>
-              <option value="ROBOTICE">ROBOTICE</option>
-              <option value="Math">Math</option>
-              <option value="SCI">SCI</option>
-              <option value="3D EduChild">3D EduChild</option>
             </select>
           </div>
         </div>

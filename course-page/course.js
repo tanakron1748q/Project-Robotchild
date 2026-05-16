@@ -29,6 +29,33 @@ const CAT = {
   'SCI':         { cls:'b-sci', lbl:'SCI' },
   '3D EduChild': { cls:'b-3d',  lbl:'3D EduChild' },
 };
+
+let courseTypes = [...new Set(courses.map(c => c.type))];
+
+function populateTypeSelect() {
+  const sel = document.getElementById('fType');
+  if (!sel) return;
+  const currentVal = sel.value;
+  sel.innerHTML = '<option value="">เลือกประเภท</option>' + 
+    courseTypes.map(t => `<option value="${t}">${t}</option>`).join('');
+  sel.value = currentVal;
+}
+
+function addNewType() {
+  const newType = prompt('กรุณาระบุชื่อประเภทคอร์สใหม่:');
+  if (newType && newType.trim()) {
+    const trimmed = newType.trim();
+    if (courseTypes.includes(trimmed)) {
+      showToast(`ประเภท "${trimmed}" มีอยู่แล้ว`, 'error');
+    } else {
+      courseTypes.push(trimmed);
+      populateTypeSelect();
+      document.getElementById('fType').value = trimmed;
+      showToast(`เพิ่มประเภท "${trimmed}" เรียบร้อย`, 'success');
+    }
+  }
+}
+
 const badge = t => {
   const c = CAT[t] || { cls:'', lbl: t };
   return `<span class="badge ${c.cls}"><span class="bd"></span>${c.lbl}</span>`;
@@ -292,6 +319,7 @@ document.addEventListener('keydown', e => {
 });
 
 /* ══ Init ════════════════════════════════════════════════ */
+populateTypeSelect();
 buildPills();
 applyFilters();
 renderStats();
