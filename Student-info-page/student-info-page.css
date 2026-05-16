@@ -19,9 +19,8 @@
   --radius-md:   10px;
   --radius-lg:   14px;
 
-  --font-sans:   'IBM Plex Sans Thai', 'Sarabun', sans-serif;
+  --font-sans:   'IBM Plex Sans Thai', sans-serif;
   --font-mono:   'IBM Plex Mono', monospace;
-  --font-serif:  'DM Serif Display', serif;
 
   --transition:  0.15s ease;
 }
@@ -39,9 +38,11 @@ body {
 
 /* ---------- NAVBAR ---------- */
 .navbar {
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--gray-200);
-  height: 56px;
+  height: 60px;
   padding: 0 28px;
   display: flex;
   align-items: center;
@@ -64,91 +65,92 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: -0.3px;
-  color: var(--black);
+  letter-spacing: -0.4px;
+  color: var(--primary);
   text-decoration: none;
   white-space: nowrap;
 }
 
-.logo i { font-size: 17px; }
+.logo i { font-size: 20px; }
 
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   list-style: none;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 13px;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
   font-weight: 500;
-  color: var(--gray-500);
+  color: var(--text-muted);
   text-decoration: none;
   transition: var(--transition);
   white-space: nowrap;
 }
 
-.nav-link i { font-size: 15px; }
+.nav-link i { font-size: 16px; }
 
 .nav-link:hover {
-  background: var(--gray-100);
-  color: var(--black);
+  background: var(--primary-light);
+  color: var(--primary);
 }
 
 .nav-link.active {
-  background: var(--black);
-  color: var(--white);
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
 }
 
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .time-chip {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 5px 12px;
+  gap: 8px;
+  padding: 6px 14px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--gray-200);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   font-family: var(--font-mono);
-  color: var(--gray-700);
+  color: var(--primary);
   background: var(--white);
 }
 
 .dot-live {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #222;
+  background: #10b981;
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.3; }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.85); }
 }
 
 .avatar-btn {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   border: 1px solid var(--gray-300);
-  background: var(--gray-100);
+  background: var(--white);
   font-size: 11px;
   font-weight: 700;
-  color: var(--gray-700);
+  color: var(--text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -170,9 +172,9 @@ body {
 }
 
 .page-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 30px;
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: -0.5px;
   color: var(--black);
   line-height: 1.2;
@@ -457,9 +459,9 @@ tbody tr:hover { background: var(--gray-50); }
 }
 
 .modal-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 22px;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--black);
 }
 

@@ -21,11 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
         switch (range) {
             case 'today':
                 break;
-            case '7days':
-                start.setDate(today.getDate() - 6);
+            case '1month':
+                start.setMonth(today.getMonth() - 1);
                 break;
-            case '30days':
-                start.setDate(today.getDate() - 29);
+            case '3months':
+                start.setMonth(today.getMonth() - 3);
                 break;
             case 'thisMonth':
                 start = new Date(today.getFullYear(), today.getMonth(), 1);
