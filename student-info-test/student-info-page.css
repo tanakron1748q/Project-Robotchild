@@ -713,6 +713,14 @@ tbody tr:hover { background: var(--gray-50); }
   box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
 }
 
+.ef-group input:disabled,
+.ef-group select:disabled {
+  background-color: var(--gray-50);
+  color: var(--gray-400);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 .ef-group input.ef-invalid,
 .ef-group select.ef-invalid {
   border-color: var(--red);
@@ -751,6 +759,27 @@ tbody tr:hover { background: var(--gray-50); }
   font-size: 12px;
   font-weight: 600;
   color: var(--black);
+}
+
+.price-old {
+  text-decoration: line-through;
+  text-decoration-color: var(--red); /* ขีดฆ่าด้วยสีแดงให้ชัดเจน */
+  text-decoration-thickness: 1.5px;
+  color: var(--gray-400);
+  margin-right: 6px;
+  font-size: 0.9em;
+}
+
+.trial-free-label {
+  background: var(--green);
+  color: #fff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left: 8px;
+  vertical-align: middle;
 }
 
 /* Status select */

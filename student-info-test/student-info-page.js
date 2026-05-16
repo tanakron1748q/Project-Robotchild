@@ -224,7 +224,11 @@ function resetEnrollForm() {
     });
 
     document.getElementById('eSessions').value = '8';
+    document.getElementById('eSessions').disabled = false;
     document.getElementById('eDiscount').value = '0';
+    document.getElementById('eDiscount').disabled = false;
+
+    if (courseTypeEl) courseTypeEl.value = 'กลุ่ม';
 
     if (courseEl) { courseEl.value = ''; courseEl.classList.remove('ef-invalid'); }
     if (statusEl) statusEl.value = 'ออกแล้ว';
@@ -265,17 +269,30 @@ if (courseEl) {
         const opt = e.target.options[e.target.selectedIndex];
         enrollBasePrice = parseFloat(opt.getAttribute('data-price')) || 0;
 
-        if (enrollBasePrice > 0) {
-            coursePillText.textContent  = opt.text;
-            coursePillPrice.textContent = '฿' + enrollBasePrice.toLocaleString('th-TH');
-            coursePill.classList.remove('hidden');
-        } else {
-            coursePill.classList.add('hidden');
-        }
-
+        updateCoursePill();
         updatePaySummary();
         updateSidebarSteps();
     });
+}
+
+function updateCoursePill() {
+    if (!courseEl || !coursePill) return;
+    const opt = courseEl.options[courseEl.selectedIndex];
+    const isTrial = courseTypeEl && courseTypeEl.value === 'ทดลองเรียน';
+
+    if (enrollBasePrice > 0 || isTrial) {
+        coursePillText.textContent = opt.text;
+        
+        if (isTrial) {
+            coursePillPrice.innerHTML = `<span class="price-old">฿${enrollBasePrice.toLocaleString('th-TH')}</span> ฿0 <span class="trial-free-label">FREE</span>`;
+        } else {
+            coursePillPrice.textContent = '฿' + enrollBasePrice.toLocaleString('th-TH');
+        }
+        
+        coursePill.classList.remove('hidden');
+    } else {
+        coursePill.classList.add('hidden');
+    }
 }
 
 // ---------- Discount Change ----------
@@ -288,14 +305,45 @@ if (discountEl) {
     });
 }
 
+// ---------- Course Type Change (Trial Mode) ----------
+const courseTypeEl = document.getElementById('eCourseType');
+const sessionsEl   = document.getElementById('eSessions');
+
+if (courseTypeEl) {
+    courseTypeEl.addEventListener('change', () => {
+        const isTrial = courseTypeEl.value === 'ทดลองเรียน';
+        if (isTrial) {
+            sessionsEl.value = '1';
+            sessionsEl.disabled = true;
+            discountEl.value = '0';
+            discountEl.disabled = true;
+        } else {
+            sessionsEl.value = '8';
+            sessionsEl.disabled = false;
+            discountEl.disabled = false;
+        }
+        updateCoursePill();
+        updatePaySummary();
+        updateSidebarSteps();
+    });
+}
+
 // ---------- Pay Summary ----------
 function updatePaySummary() {
-    const disc = parseFloat(discountEl?.value) || 0;
-    const net  = enrollBasePrice - disc;
+    const isTrial = courseTypeEl && courseTypeEl.value === 'ทดลองเรียน';
+    const displayPrice = isTrial ? 0 : enrollBasePrice;
+    const disc = isTrial ? 0 : (parseFloat(discountEl?.value) || 0);
+    const net  = displayPrice - disc;
 
-    document.getElementById('sumPrice').textContent    = enrollBasePrice > 0 ? '฿' + enrollBasePrice.toLocaleString('th-TH') : '—';
+    const priceEl = document.getElementById('sumPrice');
+    if (isTrial) {
+        priceEl.innerHTML = `<span class="price-old">฿${enrollBasePrice.toLocaleString('th-TH')}</span> ฿0`;
+    } else {
+        priceEl.textContent = (displayPrice > 0) ? '฿' + displayPrice.toLocaleString('th-TH') : '—';
+    }
+
     document.getElementById('sumDiscount').textContent = disc > 0            ? '−฿' + disc.toLocaleString('th-TH')           : '—';
-    document.getElementById('sumNet').textContent      = enrollBasePrice > 0 ? '฿' + net.toLocaleString('th-TH')             : '—';
+    document.getElementById('sumNet').textContent      = (displayPrice > 0 || isTrial) ? '฿' + net.toLocaleString('th-TH')             : '—';
 }
 
 // ---------- Status Dot ----------
@@ -451,10 +499,13 @@ function buildStudentFromForm() {
     const equipment  = document.getElementById('eEquipment').value.trim() || '—';
     const payment    = document.getElementById('ePaymentMethod').value;
     const status     = document.getElementById('eStatus').value;
-    const discount   = parseFloat(discountEl.value) || 0;
+    const isTrial = courseType === 'ทดลองเรียน';
+    const effectivePrice = isTrial ? 0 : enrollBasePrice;
+    const discount   = isTrial ? 0 : (parseFloat(discountEl.value) || 0);
+    const net        = effectivePrice - discount;
+
     const staff      = document.getElementById('eStaff').value.trim() || '—';
     const note       = document.getElementById('eNote').value.trim() || '—';
-    const net        = enrollBasePrice - discount;
 
     // Format date
     let formattedDate = '—';
@@ -474,7 +525,7 @@ function buildStudentFromForm() {
         id: prefillStudentId !== null ? prefillStudentId : nextId++,
         name, nickname, grade, school, phone,
         // enrollment info (for receipt)
-        _enroll: { courseId, courseName, courseType, learnDate: formattedDate, sessions, equipment, payment, status, discount, staff, note, price: enrollBasePrice, net, rcpNo }
+        _enroll: { courseId, courseName, courseType, learnDate: formattedDate, sessions, equipment, payment, status, discount, staff, note, price: effectivePrice, net, rcpNo }
     };
 }
 
