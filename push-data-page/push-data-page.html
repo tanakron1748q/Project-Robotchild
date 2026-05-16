@@ -1,155 +1,198 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบลงทะเบียนเรียน</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
-    <link rel="stylesheet" href="push-data-page.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ระบบลงทะเบียนเรียน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="push-data-page.css">
 </head>
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <div class="nav-left">
-            <div class="logo">
-                <i class="ti ti-robot" aria-hidden="true"></i>
-                Robotschild
-            </div>
-            <ul class="nav-menu" role="list">
-                <li><button class="nav-link" data-page="dashboard"><i class="ti ti-layout-dashboard" aria-hidden="true"></i><span>แดชบอร์ด</span></button></li>
-                <li><button class="nav-link" data-page="realtime"><i class="ti ti-radio" aria-hidden="true"></i><span>สดตอนนี้</span></button></li>
-                <li><button class="nav-link" data-page="daily"><i class="ti ti-calendar-week" aria-hidden="true"></i><span>ประจำวัน</span></button></li>
-                <li><button class="nav-link" data-page="students"><i class="ti ti-users" aria-hidden="true"></i><span>นักเรียน</span></button></li>
-                <li><button class="nav-link" data-page="checkin"><i class="ti ti-clipboard-check" aria-hidden="true"></i><span>เช็คชื่อ</span></button></li>
-                <li><button class="nav-link active" data-page="courses"><i class="ti ti-book" aria-hidden="true"></i><span>คอร์ส</span></button></li>
-                <li><button class="nav-link" data-page="export"><i class="ti ti-download" aria-hidden="true"></i><span>ส่งออก</span></button></li>
-            </ul>
+
+<nav class="navbar">
+  <div class="nav-left">
+    <div class="logo"><i class="ti ti-robot" aria-hidden="true"></i>Robotschild</div>
+    <ul class="nav-menu" role="list">
+      <li><button class="nav-link" data-page="dashboard"><i class="ti ti-layout-dashboard" aria-hidden="true"></i><span>แดชบอร์ด</span></button></li>
+      <li><button class="nav-link" data-page="realtime"><i class="ti ti-radio" aria-hidden="true"></i><span>สดตอนนี้</span></button></li>
+      <li><button class="nav-link" data-page="daily"><i class="ti ti-calendar-week" aria-hidden="true"></i><span>ประจำวัน</span></button></li>
+      <li><button class="nav-link" data-page="students"><i class="ti ti-users" aria-hidden="true"></i><span>นักเรียน</span></button></li>
+      <li><button class="nav-link" data-page="checkin"><i class="ti ti-clipboard-check" aria-hidden="true"></i><span>เช็คชื่อ</span></button></li>
+      <li><button class="nav-link active" data-page="courses"><i class="ti ti-book" aria-hidden="true"></i><span>คอร์ส</span></button></li>
+      <li><button class="nav-link" data-page="export"><i class="ti ti-download" aria-hidden="true"></i><span>ส่งออก</span></button></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <div class="time-chip" aria-live="polite">
+      <span class="dot-live" aria-hidden="true"></span>
+      <i class="ti ti-clock" aria-hidden="true"></i>
+      <span id="clockEl">--:--:--</span>
+    </div>
+    <button class="avatar-btn" aria-label="เมนูผู้ใช้">A</button>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="page-header">
+    <h1>ลงทะเบียนเรียน</h1>
+    <p>กรอกข้อมูลนักเรียนและคอร์สที่ต้องการลงทะเบียน</p>
+  </div>
+
+  <div class="progress-bar" id="progressBar">
+    <div class="step-item">
+      <div class="step-dot active" id="s1">1</div>
+      <span class="step-label active" id="sl1">นักเรียน</span>
+    </div>
+    <div class="step-line" id="l1"></div>
+    <div class="step-item">
+      <div class="step-dot idle" id="s2">2</div>
+      <span class="step-label" id="sl2">คอร์ส</span>
+    </div>
+    <div class="step-line" id="l2"></div>
+    <div class="step-item">
+      <div class="step-dot idle" id="s3">3</div>
+      <span class="step-label" id="sl3">การชำระเงิน</span>
+    </div>
+    <div class="step-line" id="l3"></div>
+    <div class="step-item">
+      <div class="step-dot idle" id="s4">4</div>
+      <span class="step-label" id="sl4">ตารางเรียน</span>
+    </div>
+  </div>
+
+  <form id="enrollmentForm" novalidate>
+
+    <!-- SECTION 1: ข้อมูลนักเรียน -->
+    <div class="card" id="sec1">
+      <div class="card-section">
+        <div class="section-label">
+          <i class="ti ti-user-circle" aria-hidden="true"></i>ข้อมูลนักเรียน
         </div>
-        <div class="nav-right">
-            <div class="time-chip" aria-live="polite" aria-label="เวลาปัจจุบัน">
-                <span class="dot-live" aria-hidden="true"></span>
-                <i class="ti ti-clock" aria-hidden="true"></i>
-                <span id="clockEl">--:--:--</span>
-            </div>
-            <button class="avatar-btn" title="ผู้ดูแลระบบ" aria-label="เมนูผู้ใช้">
-                <span>A</span>
-            </button>
+        <div class="row">
+          <div class="fg">
+            <label for="fullName">ชื่อ-นามสกุล<span class="req">*</span></label>
+            <input type="text" id="fullName" placeholder="เช่น สมชาย ใจดี" required>
+          </div>
+          <div class="fg fg-sm">
+            <label for="nickname">ชื่อเล่น</label>
+            <input type="text" id="nickname" placeholder="เช่น อาร์ต">
+          </div>
         </div>
-    </nav>
+        <div class="row">
+          <div class="fg fg-sm">
+            <label for="grade">ระดับชั้น<span class="req">*</span></label>
+            <input type="text" id="grade" placeholder="เช่น ม.4, ป.6" required>
+          </div>
+          <div class="fg">
+            <label for="school">โรงเรียน</label>
+            <input type="text" id="school" placeholder="ชื่อโรงเรียน">
+          </div>
+        </div>
+        <div class="row row-last">
+          <div class="fg fg-md">
+            <label for="phone">เบอร์โทรศัพท์<span class="req">*</span></label>
+            <input type="tel" id="phone" placeholder="08X-XXX-XXXX" maxlength="12" required>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <main class="main-container">
-        <div class="form-container">
-            <h2>แบบฟอร์มลงทะเบียนเรียน</h2>
-        
-        <form id="enrollmentForm">
-            <!-- โซน 1: ข้อมูลนักเรียน -->
-            <fieldset>
-                <legend>1. ข้อมูลนักเรียน</legend>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="fullName">ชื่อ-นามสกุล</label>
-                        <input type="text" id="fullName" placeholder="กรอกชื่อ-นามสกุล" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nickname">ชื่อเล่น</label>
-                        <input type="text" id="nickname" placeholder="กรอกชื่อเล่น">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="grade">ระดับชั้น</label>
-                        <select id="grade" required>
-                            <option value="">-- เลือกชั้นเรียน --</option>
-                            <option value="ม.4">ม.4</option>
-                            <option value="ม.5">ม.5</option>
-                            <option value="ม.6">ม.6</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="school">โรงเรียน</label>
-                        <input type="text" id="school" placeholder="ชื่อโรงเรียน">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="phone">เบอร์โทรศัพท์</label>
-                    <input type="tel" id="phone" placeholder="08X-XXX-XXXX" required>
-                </div>
-            </fieldset>
+    <!-- SECTION 2: คอร์สเรียน -->
+    <div class="card" id="sec2">
+      <div class="card-section">
+        <div class="section-label">
+          <i class="ti ti-book-2" aria-hidden="true"></i>คอร์สเรียน
+        </div>
+        <div class="fg" style="margin-bottom:10px">
+          <label for="course">เลือกคอร์สเรียน<span class="req">*</span></label>
+          <select id="course" required>
+            <option value="" data-price="0">-- กรุณาเลือกคอร์ส --</option>
+            <option value="CS101" data-price="3500">Basic Programming</option>
+            <option value="WD201" data-price="4500">Web Development</option>
+            <option value="MA101" data-price="3000">Mathematics</option>
+          </select>
+          <div class="course-badge" id="courseBadge">
+            <i class="ti ti-tag" aria-hidden="true"></i>
+            <span id="courseBadgeText"></span>
+          </div>
+        </div>
+        <div class="row row-last">
+          <div class="fg fg-sm">
+            <label for="learnDate">วันที่เริ่มเรียน<span class="req">*</span></label>
+            <input type="date" id="learnDate" required>
+          </div>
+          <div class="fg">
+            <label for="equipment">อุปกรณ์ที่ได้รับ</label>
+            <input type="text" id="equipment" placeholder="เช่น หนังสือเรียน เล่ม 1">
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <!-- โซน 2: คอร์สเรียน -->
-            <fieldset>
-                <legend>2. ข้อมูลคอร์สเรียน</legend>
-                <div class="form-group">
-                    <label for="course">เลือกคอร์สเรียน</label>
-                    <select id="course" required>
-                        <option value="" data-price="0">-- กรุณาเลือกคอร์ส --</option>
-                        <option value="CS101" data-price="3500">Basic Programming (3,500 บาท)</option>
-                        <option value="WD201" data-price="4500">Web Development (4,500 บาท)</option>
-                        <option value="MA101" data-price="3000">Mathematics (3,000 บาท)</option>
-                    </select>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>ราคาเต็ม (บาท)</label>
-                        <input type="number" id="unitPrice" class="readonly-input" readonly placeholder="0">
-                    </div>
-                </div>
-            </fieldset>
+    <!-- SECTION 3: การชำระเงิน -->
+    <div class="card" id="sec3">
+      <div class="card-section">
+        <div class="section-label">
+          <i class="ti ti-receipt" aria-hidden="true"></i>การชำระเงิน
+        </div>
+        <div class="row">
+          <div class="fg fg-md">
+            <label for="paymentMethod">วิธีชำระเงิน<span class="req">*</span></label>
+            <select id="paymentMethod" required>
+              <option value="transfer">โอนผ่านธนาคาร</option>
+              <option value="cash">เงินสด</option>
+              <option value="credit">บัตรเครดิต</option>
+            </select>
+          </div>
+          <div class="fg fg-sm">
+            <label for="status">สถานะ<span class="req">*</span></label>
+            <div class="status-select-wrapper">
+              <div class="status-dot" id="statusDot"></div>
+              <select id="status" required>
+                <option value="paid">ชำระแล้ว</option>
+                <option value="pending">ค้างชำระ</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg fg-sm">
+            <label for="discount">ส่วนลด (฿)</label>
+            <input type="number" id="discount" value="0" min="0" placeholder="0">
+          </div>
+        </div>
+        <div class="summary">
+          <div class="summary-row">
+            <span>ราคาเต็ม</span>
+            <span id="summaryPrice">—</span>
+          </div>
+          <div class="summary-row">
+            <span>ส่วนลด</span>
+            <span id="summaryDiscount" class="discount-val">—</span>
+          </div>
+          <div class="summary-row total">
+            <span>ยอดสุทธิ</span>
+            <span id="summaryNet">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <!-- โซน 3: การเงิน -->
-            <fieldset>
-                <legend>3. การชำระเงิน</legend>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="discount">ส่วนลด (บาท)</label>
-                        <input type="number" id="discount" value="0" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label>ยอดสุทธิ (บาท)</label>
-                        <input type="number" id="netAmount" class="readonly-input highlight-amount" readonly placeholder="0">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="paymentMethod">วิธีชำระเงิน</label>
-                        <select id="paymentMethod" required>
-                            <option value="transfer">โอนเงินผ่านธนาคาร</option>
-                            <option value="cash">เงินสด</option>
-                            <option value="credit">บัตรเครดิต</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="status">สถานะ</label>
-                        <select id="status" required>
-                            <option value="paid">ชำระแล้ว</option>
-                            <option value="pending">ค้างชำระ</option>
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
+    <div class="submit-area">
+      <button type="submit" class="submit-btn">
+        <i class="ti ti-check" aria-hidden="true"></i>บันทึกข้อมูลเข้าระบบ
+      </button>
+      <p class="required-note"><span class="req">*</span> จำเป็นต้องกรอก</p>
+    </div>
 
-            <!-- โซน 4: ตารางเรียน -->
-            <fieldset class="no-border">
-                <legend>4. ตารางเรียนและอุปกรณ์</legend>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="learnDate">วันที่เริ่มเรียน</label>
-                        <input type="date" id="learnDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="equipment">อุปกรณ์ที่ได้รับ (ถ้ามี)</label>
-                        <input type="text" id="equipment" placeholder="เช่น หนังสือเรียน เล่ม 1">
-                    </div>
-                </div>
-            </fieldset>
+  </form>
+</main>
 
-            <button type="submit" class="submit-btn">บันทึกข้อมูลเข้าระบบ</button>
-        </form>
-    </main>
+<div class="toast" id="toast">
+  <i class="ti ti-circle-check"></i>บันทึกข้อมูลเรียบร้อยแล้ว
+</div>
 
-    <script src="push-data-page.js"></script>
+<script src="push-data-page.js"></script>
 </body>
 </html>
