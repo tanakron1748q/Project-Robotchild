@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robotschild — รายชื่อนักเรียน</title>
+    <title>Robotschild — นักเรียน</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
     <link rel="stylesheet" href="student-info-page.css">
 </head>
@@ -16,22 +16,21 @@
     <nav class="navbar">
         <div class="nav-inner">
             <a class="logo" href="#">
-                <i class="ti ti-robot" aria-hidden="true"></i>
-                Robotschild
+                <i class="ti ti-robot"></i>
+                <span>Robotschild</span>
             </a>
             <ul class="nav-menu">
-                <li><a href="../Dashborad/Dashboard.html" class="nav-link"><i class="ti ti-layout-dashboard"></i><span>แดชบอร์ด</span></a></li>
-                <li><a href="../Student-List-In-this-day/student-Today.html" class="nav-link"><i class="ti ti-radio"></i><span>สดตอนนี้</span></a></li>
+                <li><a href="#" class="nav-link"><i class="ti ti-layout-dashboard"></i><span>แดชบอร์ด</span></a></li>
+                <li><a href="#" class="nav-link"><i class="ti ti-radio"></i><span>สดตอนนี้</span></a></li>
                 <li><a href="#" class="nav-link"><i class="ti ti-calendar-week"></i><span>ประจำวัน</span></a></li>
                 <li><a href="#" class="nav-link active"><i class="ti ti-school"></i><span>นักเรียน</span></a></li>
                 <li><a href="#" class="nav-link"><i class="ti ti-clipboard-check"></i><span>เช็คชื่อ</span></a></li>
-                <li><a href="../course-page/course.html" class="nav-link"><i class="ti ti-book"></i><span>คอร์ส</span></a></li>
+                <li><a href="#" class="nav-link"><i class="ti ti-book"></i><span>คอร์ส</span></a></li>
                 <li><a href="#" class="nav-link"><i class="ti ti-download"></i><span>ส่งออก</span></a></li>
             </ul>
             <div class="nav-right">
                 <div class="time-chip">
                     <span class="dot-live"></span>
-                    <i class="ti ti-clock"></i>
                     <span id="clockEl">--:--:--</span>
                 </div>
                 <button class="avatar-btn">A</button>
@@ -42,28 +41,29 @@
     <main class="main-container">
         <div class="page-header">
             <div>
-                <h1 class="page-title">🎓 รายชื่อนักเรียน</h1>
+                <h1 class="page-title">นักเรียน</h1>
                 <p class="page-sub">ข้อมูลส่วนตัวและประวัติการลงทะเบียนเรียน</p>
             </div>
-            <button class="btn btn-primary" onclick="alert('ฟีเจอร์เพิ่มนักเรียนใหม่กำลังพัฒนา')">
+            <button class="btn btn-primary" onclick="void(0)">
                 <i class="ti ti-user-plus"></i> เพิ่มนักเรียน
             </button>
         </div>
 
-        <div class="card toolbar-card">
+        <!-- Toolbar -->
+        <div class="toolbar-card">
             <div class="search-wrap">
                 <i class="ti ti-search search-icon"></i>
                 <input type="text" id="searchInput" class="search-input" placeholder="ค้นหาชื่อ, ชื่อเล่น, โรงเรียน หรือเบอร์โทรศัพท์...">
             </div>
             <div class="stats-mini">
-                <span class="stat-item">
-                    <span class="stat-lbl">ทั้งหมด</span>
-                    <span class="stat-val" id="studentCount">0</span>
-                </span>
+                <span class="stat-lbl">ทั้งหมด</span>
+                <span class="stat-val" id="studentCount">0</span>
+                <span class="stat-unit">คน</span>
             </div>
         </div>
 
-        <div class="card table-card">
+        <!-- Table -->
+        <div class="table-card">
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -74,12 +74,10 @@
                             <th>ระดับชั้น</th>
                             <th>โรงเรียน</th>
                             <th>เบอร์โทรศัพท์</th>
-                            <th style="text-align: right;">จัดการ</th>
+                            <th class="col-action">จัดการ</th>
                         </tr>
                     </thead>
-                    <tbody id="studentTableBody">
-                        <!-- JS renders rows here -->
-                    </tbody>
+                    <tbody id="studentTableBody"></tbody>
                 </table>
             </div>
             <div id="emptyState" class="empty-state hidden">
@@ -90,9 +88,49 @@
         </div>
     </main>
 
+    <!-- History Modal -->
+    <div id="historyModal" class="modal-backdrop hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <p class="modal-label">ประวัติการลงทะเบียน</p>
+                    <h2 class="modal-title" id="modalStudentName">—</h2>
+                </div>
+                <button class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="modal-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ว/ด/ป</th>
+                                <th>Course ID</th>
+                                <th>ประเภท</th>
+                                <th>ชื่อคอร์ส</th>
+                                <th>ราคา</th>
+                                <th>ส่วนลด</th>
+                                <th>สุทธิ</th>
+                                <th>การชำระ</th>
+                                <th>เลขใบเสร็จ</th>
+                                <th>สถานะ</th>
+                                <th>ผู้รับเงิน</th>
+                                <th>หมายเหตุ</th>
+                                <th>วันที่เรียน</th>
+                                <th>เวลา</th>
+                                <th>ครั้ง</th>
+                                <th>อุปกรณ์</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="student-info-page.js"></script>
     <script>
-        // Simple clock for navbar
         function updateClock() {
             const el = document.getElementById('clockEl');
             if (el) el.textContent = new Date().toLocaleTimeString('th-TH', { hour12: false });
